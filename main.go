@@ -39,10 +39,10 @@ func main() {
 		ReadTimeout:  15 * time.Second,
 	}
 	
-	log.Println("🚀 Сервер запущен на http://localhost:8080")
-	log.Println("📁 Главная страница: http://localhost:8080")
-	log.Println("🔗 URL сканер: http://localhost:8080/url-scanner")
-	log.Println("⏳ Coming Soon: http://localhost:8080/coming-soon")
+	log.Println("Сервер запущен на http://localhost:8080")
+	log.Println("Главная страница: http://localhost:8080")
+	log.Println("URL сканер: http://localhost:8080/url-scanner")
+	log.Println("Coming Soon: http://localhost:8080/coming-soon")
 	
 	log.Fatal(srv.ListenAndServe())
 }
