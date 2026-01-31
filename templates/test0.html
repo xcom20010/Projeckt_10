@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1f36 0%, #2d3748 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Навигация */
+        .global-nav {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            color: #4a6cf7;
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: #a0a7c2;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 0;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: white;
+        }
+
+        .nav-link.active {
+            color: #4a6cf7;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #4a6cf7;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .sign-in {
+            color: #4a6cf7;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            background-color: rgba(74, 108, 247, 0.1);
+        }
+
+        /* Основной контент */
+        .coming-soon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .coming-soon-icon {
+            font-size: 120px;
+            margin-bottom: 40px;
+            color: #4a6cf7;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .coming-soon-title {
+            font-size: 72px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #4a6cf7, #6a8cff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .coming-soon-subtitle {
+            font-size: 24px;
+            color: #a0a7c2;
+            max-width: 600px;
+            margin-bottom: 50px;
+            line-height: 1.6;
+        }
+
+        /* Кнопка возврата */
+        .back-button {
+            display: inline-block;
+            background: linear-gradient(90deg, #4a6cf7, #6a8cff);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            margin-top: 30px;
+            transition: transform 0.2s;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Секция с информацией */
+        .info-section {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 800px;
+            margin: 40px auto;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-title {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background-color: rgba(255, 255, 255, 0.08);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid #4a6cf7;
+            transition: transform 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .card-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: #4a6cf7;
+        }
+
+        .card-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .card-text {
+            color: #a0a7c2;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Прогресс бар */
+        .progress-section {
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .progress-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: white;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4a6cf7, #6a8cff);
+            width: 75%;
+            border-radius: 6px;
+            animation: progress-animation 2s ease-in-out;
+        }
+
+        @keyframes progress-animation {
+            0% { width: 0%; }
+            100% { width: 75%; }
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            color: #a0a7c2;
+            font-size: 14px;
+        }
+
+        /* Подвал */
+        footer {
+            margin-top: 80px;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #a0a7c2;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #a0a7c2;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            font-size: 14px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .coming-soon-title {
+                font-size: 48px;
+            }
+
+            .coming-soon-subtitle {
+                font-size: 18px;
+                padding: 0 20px;
+            }
+
+            .info-section {
+                padding: 30px 20px;
+            }
+
+            .coming-soon-icon {
+                font-size: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .coming-soon-title {
+                font-size: 36px;
+            }
+
+            .coming-soon-subtitle {
+                font-size: 16px;
+            }
+
+            .info-card {
+                padding: 20px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="global-nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="/" class="logo">
+                    <div class="logo-icon">🔒</div>
+                    <div class="logo-text">VirusChecker</div>
+                </a>
+
+                <div class="nav-links">
+                    <a href="/url-scanner" class="nav-link {{if eq .ActiveTab 'url-scanner'}}active{{end}}">URL Scanner</a>
+                    <a href="/coming-soon" class="nav-link {{if eq .ActiveTab 'coming-soon'}}active{{end}}">Coming Soon</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main class="coming-soon-container">
+        <div class="container">
+            <div class="coming-soon-icon">🚀</div>
+            <h1 class="coming-soon-title">COMING SOON</h1>
+            <p class="coming-soon-subtitle">We're working hard to bring you something amazing. Stay tuned for our new security features and enhanced threat intelligence platform.</p>
+
+            <!-- Кнопка возврата на главную -->
+            <a href="/url-scanner" class="back-button">← Back to URL Scanner</a>
+</body>
+</html>

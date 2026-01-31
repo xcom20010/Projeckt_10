@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Навигация */
+        .global-nav {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            color: #4a6cf7;
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 0;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #4a6cf7;
+        }
+
+        .nav-link.active {
+            color: #4a6cf7;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #4a6cf7;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .sign-in {
+            color: #4a6cf7;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 6px;
+            background-color: #f0f2ff;
+        }
+
+        /* Основной контент */
+        main {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
+        }
+
+        .scanner-container {
+            background-color: white;
+            border-radius: 16px;
+            padding: 60px 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .scanner-title {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .scanner-subtitle {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Поле ввода URL */
+        .url-input-container {
+            background-color: #f8f9ff;
+            border-radius: 12px;
+            padding: 40px;
+            border: 2px dashed #d1d9ff;
+            margin-bottom: 30px;
+        }
+
+        .url-input-wrapper {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .url-input {
+            flex-grow: 1;
+            padding: 18px 20px;
+            border: 2px solid #e1e5eb;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .url-input:focus {
+            outline: none;
+            border-color: #4a6cf7;
+        }
+
+        .scan-button {
+            background: linear-gradient(90deg, #4a6cf7, #6a8cff);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            white-space: nowrap;
+        }
+
+        .scan-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .scan-icon {
+            margin-right: 8px;
+        }
+
+        .url-examples {
+            color: #888;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        /* Примеры URL */
+        .examples-section {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .examples-title {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .example-url {
+            background-color: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4a6cf7;
+            font-size: 14px;
+            color: #555;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .example-url:hover {
+            background-color: #eef1ff;
+        }
+
+        /* Статус сканирования */
+        .scan-status {
+            margin-top: 40px;
+            padding: 25px;
+            background-color: #f8f9ff;
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .status-title {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .status-label {
+            color: #666;
+        }
+
+        .status-value {
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Подвал */
+        footer {
+            background-color: #1a1f36;
+            color: #a0a7c2;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #a0a7c2;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .scanner-container {
+                padding: 40px 20px;
+            }
+
+            .scanner-title {
+                font-size: 26px;
+            }
+
+            .url-input-wrapper {
+                flex-direction: column;
+            }
+
+            .url-input, .scan-button {
+                width: 100%;
+            }
+
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .scanner-title {
+                font-size: 22px;
+            }
+
+            .url-input-container {
+                padding: 25px 20px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="global-nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="/" class="logo">
+                    <div class="logo-icon">🔒</div>
+                    <div class="logo-text">VirusChecker</div>
+                </a>
+
+                <div class="nav-links">
+                    <a href="/url-scanner" class="nav-link {{if eq .ActiveTab 'url-scanner'}}active{{end}}">URL Scanner</a>
+                    <a href="/coming-soon" class="nav-link {{if eq .ActiveTab 'coming-soon'}}active{{end}}">Coming Soon</a>
+                </div>
+
+                <div>
+                    <a></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main>
+        <div class="container">
+            <div class="scanner-container">
+                <h1 class="scanner-title">URL Scanner</h1>
+                <p class="scanner-subtitle">
+                    Analyze suspicious URLs to detect malware and other threats. Check URLs for malicious content using 70+ antivirus scanners and URL/domain blocklisting services.
+                </p>
+
+                <div class="url-input-container">
+                    <div class="url-input-wrapper">
+                        <input type="text" class="url-input" placeholder="https://example.com/path" id="urlInput">
+                        <button class="scan-button" id="scanButton">
+                            <span class="scan-icon">🔍</span> Scan URL
+                        </button>
+                    </div>
+                    <div class="url-examples">
+                        Example: https://example.com, http://malicious-site.com/path, ftp://server.com/file.zip
+                    </div>
+                </div>
+
+                <!-- Статус сканирования -->
+                <div class="scan-status" id="scanStatus" style="display: none;">
+                    <h3 class="status-title">Scan Results</h3>
+                    <div class="status-item">
+                        <span class="status-label">URL:</span>
+                        <span class="status-value" id="resultUrl">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Status:</span>
+                        <span class="status-value" id="resultStatus">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Detection:</span>
+                        <span class="status-value" id="resultDetection">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Last Analysis:</span>
+                        <span class="status-value" id="resultDate">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
