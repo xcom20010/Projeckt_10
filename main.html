@@ -1,14 +1,75 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title class="title">empty website for future</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
 </head>
 <body>
-    <h1 class="title">Welcome to VirusChecker!</h1>
-    <ul>
-        <li class="choose"><a href="">Title</a></li>
-        <li class="choose"><a href="">Cheker</a></li>
-    </ul>
-    <p>Этот текст не несёт никакой смысловой нагрузки, он тут для галочки</p>
+    <!-- Навигация -->
+    <nav class="global-nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="/" class="logo">
+                    <div class="logo-icon">🔒</div>
+                    <div class="logo-text">VirusChecker</div>
+                </a>
 
+                <div class="nav-links">
+                    <a href="/url-scanner" class="nav-link {{if eq .ActiveTab url-scanner}}active{{end}}">URL Scanner</a>
+                    <a href="/coming-soon" class="nav-link {{if eq .ActiveTab coming-soon}}active{{end}}">Coming Soon</a>
+                </div>
+
+                <div>
+                    <a>    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Основной контент -->
+    <main>
+        <div class="container">
+            <div class="scanner-container">
+                <h1 class="scanner-title">URL Scanner</h1>
+                <p class="scanner-subtitle">
+                    Analyze suspicious URLs to detect malware and other threats. Check URLs for malicious content using 70+ antivirus scanners and URL/domain blocklisting services.
+                </p>
+
+                <div class="url-input-container">
+                    <div class="url-input-wrapper">
+                        <input type="text" class="url-input" placeholder="https://example.com/path" id="urlInput">
+                        <button class="scan-button" id="scanButton">
+                            <span class="scan-icon">🔍</span> Scan URL
+                        </button>
+                    </div>
+                    <div class="url-examples">
+                        Example: https://example.com, http://malicious-site.com/path, ftp://server.com/file.zip
+                    </div>
+                </div>
+
+                <!-- Статус сканирования -->
+                <div class="scan-status" id="scanStatus" style="display: none;">
+                    <h3 class="status-title">Scan Results</h3>
+                    <div class="status-item">
+                        <span class="status-label">URL:</span>
+                        <span class="status-value" id="resultUrl">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Status:</span>
+                        <span class="status-value" id="resultStatus">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Detection:</span>
+                        <span class="status-value" id="resultDetection">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Last Analysis:</span>
+                        <span class="status-value" id="resultDate">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
+</html>
