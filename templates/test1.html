@@ -360,12 +360,12 @@
                 </a>
 
                 <div class="nav-links">
-                    <a href="/url-scanner" class="nav-link {{if eq .ActiveTab 'url-scanner'}}active{{end}}">URL Scanner</a>
-                    <a href="/coming-soon" class="nav-link {{if eq .ActiveTab 'coming-soon'}}active{{end}}">Coming Soon</a>
+                    <a href="/url-scanner" class="nav-link {{if eq .ActiveTab url-scanner}}active{{end}}">URL Scanner</a>
+                    <a href="/coming-soon" class="nav-link {{if eq .ActiveTab coming-soon}}active{{end}}">Coming Soon</a>
                 </div>
 
                 <div>
-                    <a></a>
+                    <a>    </a>
                 </div>
             </div>
         </div>
@@ -393,7 +393,7 @@
                 </div>
 
                 <!-- Статус сканирования -->
-                <div class="scan-status" id="scanStatus" style="display: none;">
+                <div class="scan-status" id="scanStatus" style="display: none">
                     <h3 class="status-title">Scan Results</h3>
                     <div class="status-item">
                         <span class="status-label">URL:</span>
