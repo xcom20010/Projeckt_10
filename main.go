@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -13,23 +15,22 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Структура для хранения данных сканирования
-type ScanData struct {
-	ID          string    `json:"id"`
-	URL         string    `json:"url"`
-	Timestamp   time.Time `json:"timestamp"`
-	Status      string    `json:"status"`
-	Detection   string    `json:"detection"`
-	UserAgent   string    `json:"user_agent"`
-	IPAddress   string    `json:"ip_address"`
-}
-
-// Структура для ответа API
-type ScanResponse struct {
-	Success bool   `json:"success"`
-	Message string `json:"message"`
+// Структура для ответа от Python сервиса
+type PythonScanResponse struct {
+	Success bool `json:"success"`
 	ScanID  string `json:"scan_id"`
-	Data    ScanData `json:"data,omitempty"`
+	Data    struct {
+		ID          string   `json:"id"`
+		URL         string   `json:"url"`
+		Timestamp   string   `json:"timestamp"`
+		Status      string   `json:"status"`
+		Detection   string   `json:"detection"`
+		LocalScore  int      `json:"local_score"`
+		LocalFlags  []string `json:"local_flags"`
+		VTMalicious int      `json:"vt_malicious"`
+		VTTotal     int      `json:"vt_total"`
+		VTError     *string  `json:"vt_error"`
+	} `json:"data"`
 }
 
 // Структура для передачи данных в шаблоны
@@ -37,13 +38,14 @@ type PageData struct {
 	Title       string
 	CurrentYear int
 	ActiveTab   string
+	PythonURL   string
 }
 
-var scans []ScanData // Хранилище в памяти
+var pythonServiceURL = "http://localhost:5000"
 
 func main() {
-	// Загружаем сохраненные данные при старте
-	loadScansFromFile()
+	// Проверяем доступность Python сервиса
+	go checkPythonService()
 	
 	r := mux.NewRouter()
 	
@@ -55,56 +57,37 @@ func main() {
 	r.HandleFunc("/", homeHandler)
 	r.HandleFunc("/url-scanner", urlScannerHandler)
 	r.HandleFunc("/coming-soon", comingSoonHandler)
+	r.HandleFunc("/admin", adminHandler)
+	
+	// API маршруты (прокси к Python)
 	r.HandleFunc("/api/scan", scanHandler).Methods("POST")
-	r.HandleFunc("/api/scans", getAllScansHandler).Methods("GET")
-	r.HandleFunc("/admin/scans", adminScansHandler).Methods("GET") // Страница с данными
+	r.HandleFunc("/api/scans", getScansHandler).Methods("GET")
+	r.HandleFunc("/api/scan/{id}", getScanHandler).Methods("GET")
+	r.HandleFunc("/api/health", healthHandler).Methods("GET")
 	
 	srv := &http.Server{
 		Handler:      r,
 		Addr:         ":8080",
-		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  15 * time.Second,
+		WriteTimeout: 30 * time.Second,
+		ReadTimeout:  30 * time.Second,
 	}
 	
-	log.Println("🚀 Сервер запущен на http://localhost:8080")
-	log.Println("📁 Главная страница: http://localhost:8080")
-	log.Println("🔗 URL сканер: http://localhost:8080/url-scanner")
-	log.Println("⏳ Coming Soon: http://localhost:8080/coming-soon")
-	log.Println("📊 Просмотр данных: http://localhost:8080/admin/scans")
+	log.Println("🚀 Go сервер запущен на http://localhost:8080")
+	log.Println("🐍 Python сервер ожидается на http://localhost:5000")
+	log.Println("📊 Admin панель: http://localhost:8080/admin")
 	
 	log.Fatal(srv.ListenAndServe())
 }
 
-// Загрузка данных из файла
-func loadScansFromFile() {
-	file, err := os.OpenFile("scans.json", os.O_RDONLY|os.O_CREATE, 0644)
+func checkPythonService() {
+	time.Sleep(2 * time.Second)
+	resp, err := http.Get(pythonServiceURL + "/health")
 	if err != nil {
-		log.Printf("Ошибка открытия файла: %v", err)
-		return
-	}
-	defer file.Close()
-	
-	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&scans)
-	if err != nil && err.Error() != "EOF" {
-		log.Printf("Ошибка декодирования JSON: %v", err)
-	}
-}
-
-// Сохранение данных в файл
-func saveScansToFile() {
-	file, err := os.Create("scans.json")
-	if err != nil {
-		log.Printf("Ошибка создания файла: %v", err)
-		return
-	}
-	defer file.Close()
-	
-	encoder := json.NewEncoder(file)
-	encoder.SetIndent("", "  ")
-	err = encoder.Encode(scans)
-	if err != nil {
-		log.Printf("Ошибка кодирования JSON: %v", err)
+		log.Printf("⚠️ Python сервис недоступен: %v", err)
+		log.Printf("   Запустите: python scanner.py")
+	} else {
+		defer resp.Body.Close()
+		log.Printf("✅ Python сервис подключен")
 	}
 }
 
@@ -114,9 +97,10 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 
 func urlScannerHandler(w http.ResponseWriter, r *http.Request) {
 	data := PageData{
-		Title:       "VirusTotal - URL Scanner",
+		Title:       "VirusChecker - URL Scanner",
 		CurrentYear: time.Now().Year(),
 		ActiveTab:   "url-scanner",
+		PythonURL:   pythonServiceURL,
 	}
 	
 	renderTemplate(w, "index.html", data)
@@ -124,7 +108,7 @@ func urlScannerHandler(w http.ResponseWriter, r *http.Request) {
 
 func comingSoonHandler(w http.ResponseWriter, r *http.Request) {
 	data := PageData{
-		Title:       "Coming Soon - VirusTotal",
+		Title:       "Coming Soon - VirusChecker",
 		CurrentYear: time.Now().Year(),
 		ActiveTab:   "coming-soon",
 	}
@@ -132,93 +116,135 @@ func comingSoonHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "coming-soon.html", data)
 }
 
-// Обработчик страницы с данными
-func adminScansHandler(w http.ResponseWriter, r *http.Request) {
+func adminHandler(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		Title       string
 		CurrentYear int
-		Scans       []ScanData
+		PythonURL   string
 	}{
-		Title:       "Scan History - VirusTotal",
+		Title:       "Admin Panel - VirusChecker History",
 		CurrentYear: time.Now().Year(),
-		Scans:       scans,
+		PythonURL:   pythonServiceURL,
 	}
 	
 	renderTemplate(w, "admin.html", data)
 }
 
-// API обработчик для получения всех сканов
-func getAllScansHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	
-	response := map[string]interface{}{
-		"success": true,
-		"count":   len(scans),
-		"scans":   scans,
-	}
-	
-	json.NewEncoder(w).Encode(response)
-}
-
-// API обработчик для сканирования URL
+// Прокси к Python API
 func scanHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	
-	// Парсим JSON из запроса
-	var requestData struct {
-		URL string `json:"url"`
-	}
-	
-	err := json.NewDecoder(r.Body).Decode(&requestData)
+	// Читаем тело запроса
+	body, err := io.ReadAll(r.Body)
 	if err != nil {
-		http.Error(w, `{"success": false, "message": "Invalid request"}`, http.StatusBadRequest)
+		http.Error(w, `{"success": false, "error": "Cannot read request"}`, http.StatusBadRequest)
 		return
 	}
 	
-	// Генерируем ID скана
-	scanID := fmt.Sprintf("scan_%d", time.Now().UnixNano())
+	// Отправляем запрос к Python сервису
+	resp, err := http.Post(pythonServiceURL+"/scan", "application/json", bytes.NewBuffer(body))
+	if err != nil {
+		// Если Python сервис недоступен, используем упрощенный локальный анализ
+		log.Printf("Python service unavailable, using fallback: %v", err)
+		handleFallbackScan(w, body)
+		return
+	}
+	defer resp.Body.Close()
 	
-	// Случайные результаты для демонстрации
-	results := []struct {
-		Status    string
-		Detection string
-	}{
-		{"Clean", "0/72"},
-		{"Suspicious", "12/72"},
-		{"Malicious", "58/72"},
-		{"Clean", "1/72"},
+	// Копируем ответ от Python сервиса
+	w.WriteHeader(resp.StatusCode)
+	io.Copy(w, resp.Body)
+}
+
+// Запасной вариант, если Python недоступен
+func handleFallbackScan(w http.ResponseWriter, body []byte) {
+	var req struct {
+		URL string `json:"url"`
 	}
 	
-	randomResult := results[time.Now().UnixNano()%int64(len(results))]
-	
-	// Создаем запись скана
-	scan := ScanData{
-		ID:          scanID,
-		URL:         requestData.URL,
-		Timestamp:   time.Now(),
-		Status:      randomResult.Status,
-		Detection:   randomResult.Detection,
-		UserAgent:   r.UserAgent(),
-		IPAddress:   r.RemoteAddr,
+	if err := json.Unmarshal(body, &req); err != nil {
+		http.Error(w, `{"success": false, "error": "Invalid JSON"}`, http.StatusBadRequest)
+		return
 	}
 	
-	// Добавляем в хранилище
-	scans = append(scans, scan)
+	// Простой локальный анализ на Go
+	scanID := fmt.Sprintf("scan_fallback_%d", time.Now().UnixNano())
 	
-	// Сохраняем в файл
-	saveScansToFile()
-	
-	// Отправляем ответ
-	response := ScanResponse{
-		Success: true,
-		Message: "Scan completed successfully",
-		ScanID:  scanID,
-		Data:    scan,
+	response := map[string]interface{}{
+		"success": true,
+		"scan_id": scanID,
+		"data": map[string]interface{}{
+			"id":          scanID,
+			"url":         req.URL,
+			"timestamp":   time.Now().Format(time.RFC3339),
+			"status":      "Ожидает проверки",
+			"detection":   "0/0 (fallback)",
+			"local_score": 0,
+			"local_flags": []string{"Python сервис недоступен, использован запасной анализ"},
+			"vt_error":    "Python scanner offline",
+		},
 	}
 	
+	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
+}
+
+func getScansHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	
+	resp, err := http.Get(pythonServiceURL + "/scans")
+	if err != nil {
+		http.Error(w, `{"success": false, "error": "Python service unavailable"}`, http.StatusServiceUnavailable)
+		return
+	}
+	defer resp.Body.Close()
+	
+	w.WriteHeader(resp.StatusCode)
+	io.Copy(w, resp.Body)
+}
+
+func getScanHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	
+	vars := mux.Vars(r)
+	scanID := vars["id"]
+	
+	resp, err := http.Get(pythonServiceURL + "/scan/" + scanID)
+	if err != nil {
+		http.Error(w, `{"success": false, "error": "Python service unavailable"}`, http.StatusServiceUnavailable)
+		return
+	}
+	defer resp.Body.Close()
+	
+	w.WriteHeader(resp.StatusCode)
+	io.Copy(w, resp.Body)
+}
+
+func healthHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	
+	// Проверяем Python сервис
+	pythonStatus := "unavailable"
+	pythonResp, err := http.Get(pythonServiceURL + "/health")
+	if err == nil {
+		defer pythonResp.Body.Close()
+		pythonStatus = "connected"
+	}
+	
+	status := map[string]interface{}{
+		"status": "ok",
+		"go": map[string]interface{}{
+			"version": "1.21",
+			"uptime":  time.Now().Unix(),
+		},
+		"python": map[string]interface{}{
+			"status": pythonStatus,
+			"url":    pythonServiceURL,
+		},
+	}
+	
+	json.NewEncoder(w).Encode(status)
 }
 
 func renderTemplate(w http.ResponseWriter, tmplName string, data interface{}) {
