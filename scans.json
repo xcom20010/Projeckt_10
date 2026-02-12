@@ -1,0 +1,47 @@
+[
+  {
+    "id": "scan_1770933749681158000",
+    "url": "https://ya.ru",
+    "timestamp": "2026-02-13T01:02:29.681158+03:00",
+    "status": "Clean",
+    "detection": "0/72",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0",
+    "ip_address": "[::1]:56587"
+  },
+  {
+    "id": "scan_1770933767160123700",
+    "url": "https://ya.ru",
+    "timestamp": "2026-02-13T01:02:47.1601237+03:00",
+    "status": "Clean",
+    "detection": "0/72",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0",
+    "ip_address": "[::1]:56588"
+  },
+  {
+    "id": "scan_1770933770247390500",
+    "url": "https://ya.ru",
+    "timestamp": "2026-02-13T01:02:50.2473905+03:00",
+    "status": "Clean",
+    "detection": "0/72",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0",
+    "ip_address": "[::1]:56588"
+  },
+  {
+    "id": "scan_1770933771685510300",
+    "url": "https://ya.ru",
+    "timestamp": "2026-02-13T01:02:51.6855103+03:00",
+    "status": "Clean",
+    "detection": "0/72",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0",
+    "ip_address": "[::1]:56588"
+  },
+  {
+    "id": "scan_1770933792493829500",
+    "url": "https://google.com",
+    "timestamp": "2026-02-13T01:03:12.4938295+03:00",
+    "status": "Clean",
+    "detection": "0/72",
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0",
+    "ip_address": "[::1]:56590"
+  }
+]
