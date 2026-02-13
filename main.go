@@ -57,7 +57,6 @@ func main() {
 	// Маршруты
 	r.HandleFunc("/", homeHandler)
 	r.HandleFunc("/url-scanner", urlScannerHandler)
-	r.HandleFunc("/coming-soon", comingSoonHandler)
 	r.HandleFunc("/admin", adminHandler)
 
 	// API маршруты (прокси к Python)
@@ -107,16 +106,17 @@ func urlScannerHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "index.html", data)
 }
 
-func comingSoonHandler(w http.ResponseWriter, r *http.Request) {
-	data := PageData{
-		Title:       "Coming Soon - VirusChecker",
-		CurrentYear: time.Now().Year(),
-		ActiveTab:   "coming-soon",
+/*
+	func comingSoonHandler(w http.ResponseWriter, r *http.Request) {
+		data := PageData{
+			Title:       "Coming Soon - VirusChecker",
+			CurrentYear: time.Now().Year(),
+			ActiveTab:   "coming-soon",
+		}
+
+		renderTemplate(w, "coming-soon.html", data)
 	}
-
-	renderTemplate(w, "coming-soon.html", data)
-}
-
+*/
 func adminHandler(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		Title       string
