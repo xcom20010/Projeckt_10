@@ -16,9 +16,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 from flask import Flask, request, jsonify
 
-# ============================================
-# КОНФИГУРАЦИЯ И КОНСТАНТЫ
-# ============================================
+
 
 app = Flask(__name__)
 SCANS_FILE = Path("scans.json")
@@ -70,9 +68,7 @@ PRIVATE_IP_PREFIXES = ('10.', '172.16.', '172.17.', '172.18.', '172.19.',
                        '172.25.', '172.26.', '172.27.', '172.28.', '172.29.',
                        '172.30.', '172.31.', '192.168.', '127.')
 
-# ============================================
-# ОПТИМИЗИРОВАННЫЙ АНАЛИЗАТОР
-# ============================================
+
 
 @lru_cache(maxsize=CACHE_SIZE)
 def analyze_url_locally(url):
@@ -187,9 +183,7 @@ def analyze_url_locally(url):
     
     return final_score, flags[:8], final_score  # Лимитируем флаги
 
-# ============================================
-# ОПТИМИЗИРОВАННЫЕ СЕТЕВЫЕ ПРОВЕРКИ
-# ============================================
+
 
 @lru_cache(maxsize=CACHE_SIZE)
 def check_dns(domain):
@@ -201,9 +195,7 @@ def check_dns(domain):
     except Exception:
         return {'ip': None, 'private': False, 'error': 'DNS failed'}
 
-# ============================================
-# ОПТИМИЗИРОВАННОЕ ХРАНЕНИЕ
-# ============================================
+
 
 def save_scan_result(scan_data):
     """Атомарное сохранение с лимитом записей"""
@@ -228,9 +220,7 @@ def save_scan_result(scan_data):
     except Exception:
         pass
 
-# ============================================
-# API ENDPOINTS (ОПТИМИЗИРОВАННЫЕ)
-# ============================================
+
 
 @app.route('/health', methods=['GET'])
 def health():
@@ -319,9 +309,6 @@ def quick_check():
         'total': len(flags)
     }
 
-# ============================================
-# ЗАПУСК
-# ============================================
 
 if __name__ == '__main__':
     print(f"\n{'='*50}")

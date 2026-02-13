@@ -84,11 +84,11 @@ func checkPythonService() {
 	time.Sleep(2 * time.Second)
 	resp, err := http.Get(pythonServiceURL + "/health")
 	if err != nil {
-		log.Printf("⚠️ Python сервис недоступен: %v", err)
-		log.Printf("   Запустите: python scanner.py")
+		log.Printf("Python сервис недоступен: %v", err)
+		log.Printf("Запустите: python scanner.py")
 	} else {
 		defer resp.Body.Close()
-		log.Printf("✅ Python сервис подключен")
+		log.Printf("Python сервис подключен")
 	}
 }
 

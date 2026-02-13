@@ -437,7 +437,7 @@
             <div class="scanner-container">
                 <h1 class="scanner-title">🔐 VirusChecker URL Scanner</h1>
                 <p class="scanner-subtitle">
-                    Двухуровневая проверка: локальный анализ паттернов + VirusTotal API (через Python)
+                    Двухуровневая проверка: локальный анализ паттернов (через Python)
                 </p>
                 
                 <div class="url-input-container">
@@ -481,7 +481,6 @@
                             <div style="font-size: 24px; font-weight: 700; color: #4a6cf7;" id="localScore">0/10</div>
                         </div>
                         <div style="flex: 1; padding: 15px; background-color: #f8f9ff; border-radius: 8px;">
-                            <div style="font-size: 14px; color: #666;">VirusTotal</div>
                             <div style="font-size: 24px; font-weight: 700; color: #4a6cf7;" id="vtScore">-</div>
                         </div>
                     </div>
@@ -543,7 +542,6 @@
                 
                 if (data.python.status === 'connected') {
                     statusDiv.className = 'service-status service-online';
-                    statusDiv.innerHTML = '✅ Python сервис подключен. Доступен полный анализ с VirusTotal.';
                 } else {
                     statusDiv.className = 'service-status service-offline';
                     statusDiv.innerHTML = '⚠️ Python сервис недоступен. Используется упрощенный локальный анализ.';
@@ -551,7 +549,7 @@
             } catch (error) {
                 const statusDiv = document.getElementById('serviceStatus');
                 statusDiv.className = 'service-status service-offline';
-                statusDiv.innerHTML = '❌ Python сервис не отвечает. Проверьте: python scanner.py';
+                statusDiv.innerHTML = 'Python сервис не отвечает. Проверьте: python scanner.py';
             }
         }
         
