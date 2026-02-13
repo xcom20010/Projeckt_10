@@ -11,7 +11,7 @@
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-
+        
         body {
             background: linear-gradient(135deg, #1a1f36 0%, #2d3748 100%);
             color: white;
@@ -19,48 +19,48 @@
             display: flex;
             flex-direction: column;
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-
+        
         /* Навигация */
         .global-nav {
             padding: 20px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-
+        
         .nav-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
             text-decoration: none;
         }
-
+        
         .logo-icon {
             color: #4a6cf7;
             font-size: 24px;
         }
-
+        
         .logo-text {
             font-size: 22px;
             font-weight: 700;
             color: white;
         }
-
+        
         .nav-links {
             display: flex;
             gap: 30px;
         }
-
+        
         .nav-link {
             color: #a0a7c2;
             text-decoration: none;
@@ -69,15 +69,15 @@
             position: relative;
             transition: color 0.2s;
         }
-
+        
         .nav-link:hover {
             color: white;
         }
-
+        
         .nav-link.active {
             color: #4a6cf7;
         }
-
+        
         .nav-link.active::after {
             content: '';
             position: absolute;
@@ -88,13 +88,13 @@
             background-color: #4a6cf7;
             border-radius: 3px 3px 0 0;
         }
-
+        
         .user-menu {
             display: flex;
             align-items: center;
             gap: 20px;
         }
-
+        
         .sign-in {
             color: #4a6cf7;
             text-decoration: none;
@@ -103,7 +103,7 @@
             border-radius: 6px;
             background-color: rgba(74, 108, 247, 0.1);
         }
-
+        
         /* Основной контент */
         .coming-soon-container {
             display: flex;
@@ -114,20 +114,20 @@
             text-align: center;
             padding: 60px 0;
         }
-
+        
         .coming-soon-icon {
             font-size: 120px;
             margin-bottom: 40px;
             color: #4a6cf7;
             animation: pulse 2s infinite;
         }
-
+        
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
-
+        
         .coming-soon-title {
             font-size: 72px;
             font-weight: 800;
@@ -137,7 +137,7 @@
             -webkit-text-fill-color: transparent;
             letter-spacing: -1px;
         }
-
+        
         .coming-soon-subtitle {
             font-size: 24px;
             color: #a0a7c2;
@@ -145,7 +145,7 @@
             margin-bottom: 50px;
             line-height: 1.6;
         }
-
+        
         /* Кнопка возврата */
         .back-button {
             display: inline-block;
@@ -159,11 +159,11 @@
             margin-top: 30px;
             transition: transform 0.2s;
         }
-
+        
         .back-button:hover {
             transform: translateY(-3px);
         }
-
+        
         /* Секция с информацией */
         .info-section {
             background-color: rgba(255, 255, 255, 0.05);
@@ -174,21 +174,21 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
+        
         .info-title {
             font-size: 28px;
             margin-bottom: 25px;
             color: white;
             font-weight: 600;
         }
-
+        
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
             margin-top: 30px;
         }
-
+        
         .info-card {
             background-color: rgba(255, 255, 255, 0.08);
             padding: 25px;
@@ -196,44 +196,44 @@
             border-left: 4px solid #4a6cf7;
             transition: transform 0.3s;
         }
-
+        
         .info-card:hover {
             transform: translateY(-5px);
             background-color: rgba(255, 255, 255, 0.12);
         }
-
+        
         .card-icon {
             font-size: 36px;
             margin-bottom: 15px;
             color: #4a6cf7;
         }
-
+        
         .card-title {
             font-size: 18px;
             margin-bottom: 10px;
             color: white;
             font-weight: 600;
         }
-
+        
         .card-text {
             color: #a0a7c2;
             font-size: 14px;
             line-height: 1.5;
         }
-
+        
         /* Прогресс бар */
         .progress-section {
             max-width: 600px;
             margin: 40px auto;
         }
-
+        
         .progress-title {
             font-size: 18px;
             margin-bottom: 15px;
             color: white;
             font-weight: 600;
         }
-
+        
         .progress-bar {
             height: 12px;
             background-color: rgba(255, 255, 255, 0.1);
@@ -241,7 +241,7 @@
             overflow: hidden;
             margin-bottom: 10px;
         }
-
+        
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #4a6cf7, #6a8cff);
@@ -249,19 +249,19 @@
             border-radius: 6px;
             animation: progress-animation 2s ease-in-out;
         }
-
+        
         @keyframes progress-animation {
             0% { width: 0%; }
             100% { width: 75%; }
         }
-
+        
         .progress-text {
             display: flex;
             justify-content: space-between;
             color: #a0a7c2;
             font-size: 14px;
         }
-
+        
         /* Подвал */
         footer {
             margin-top: 80px;
@@ -270,11 +270,11 @@
             text-align: center;
             color: #a0a7c2;
         }
-
+        
         .footer-content {
             text-align: center;
         }
-
+        
         .footer-links {
             display: flex;
             justify-content: center;
@@ -282,59 +282,59 @@
             margin-bottom: 20px;
             flex-wrap: wrap;
         }
-
+        
         .footer-links a {
             color: #a0a7c2;
             text-decoration: none;
             font-size: 14px;
         }
-
+        
         .footer-links a:hover {
             color: white;
         }
-
+        
         .copyright {
             font-size: 14px;
         }
-
+        
         /* Адаптивность */
         @media (max-width: 768px) {
             .nav-content {
                 flex-direction: column;
                 gap: 15px;
             }
-
+            
             .coming-soon-title {
                 font-size: 48px;
             }
-
+            
             .coming-soon-subtitle {
                 font-size: 18px;
                 padding: 0 20px;
             }
-
+            
             .info-section {
                 padding: 30px 20px;
             }
-
+            
             .coming-soon-icon {
                 font-size: 80px;
             }
         }
-
+        
         @media (max-width: 480px) {
             .coming-soon-title {
                 font-size: 36px;
             }
-
+            
             .coming-soon-subtitle {
                 font-size: 16px;
             }
-
+            
             .info-card {
                 padding: 20px;
             }
-
+            
             .nav-links {
                 flex-direction: column;
                 gap: 10px;
@@ -352,10 +352,14 @@
                     <div class="logo-icon">🔒</div>
                     <div class="logo-text">VirusChecker</div>
                 </a>
-
+                
                 <div class="nav-links">
-                    <a href="/url-scanner" class='nav-link {{if eq .ActiveTab "url-scanner"}}active{{end}}'>URL Scanner</a>
-                    <a href="/coming-soon" class='nav-link {{if eq .ActiveTab "coming-soon"}}active{{end}}'>Coming Soon</a>
+                    <a href="/url-scanner" class="nav-link {{if eq .ActiveTab "url-scanner"}}active{{end}}">URL Scanner</a>
+                    <a href="/coming-soon" class="nav-link {{if eq .ActiveTab "coming-soon"}}active{{end}}">Coming Soon</a>
+                </div>
+                
+                <div class="user-menu">
+                    <a href="#" class="sign-in">Sign in</a>
                 </div>
             </div>
         </div>
@@ -366,10 +370,66 @@
         <div class="container">
             <div class="coming-soon-icon">🚀</div>
             <h1 class="coming-soon-title">COMING SOON</h1>
-            <p class="coming-soon-subtitle">We're working hard to bring you something amazing. Stay tuned for our new security features and enhanced threat intelligence platform.</p>
-
+            <p class="coming-soon-subtitle">Мы работаем над новыми функциями VirusChecker. Следите за обновлениями!</p>
+            
             <!-- Кнопка возврата на главную -->
-            <a href="/url-scanner" class="back-button">← Back to URL Scanner</a>
-    <!-- Замените скрипт в index.html на этот -->
+            <a href="/url-scanner" class="back-button">← Вернуться к Scanner</a>
+            
+            <!-- Секция с информацией -->
+            <div class="info-section">
+                <h2 class="info-title">Что нового в VirusChecker?</h2>
+                <p style="color: #a0a7c2; margin-bottom: 30px; line-height: 1.6;">Следующий релиз принесет революционные функции для обнаружения угроз и анализа, работающие на основе передовых технологий AI и машинного обучения.</p>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="card-icon">🤖</div>
+                        <div class="card-title">AI-обнаружение</div>
+                        <div class="card-text">Передовые алгоритмы машинного обучения для проактивного выявления угроз.</div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="card-icon">📊</div>
+                        <div class="card-title">Аналитика в реальном времени</div>
+                        <div class="card-text">Дашборд с комплексной визуализацией данных.</div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="card-icon">🔍</div>
+                        <div class="card-title">Улучшенное сканирование</div>
+                        <div class="card-text">Более быстрое и точное сканирование с 80+ антивирусными движками.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Прогресс бар -->
+            <div class="progress-section">
+                <div class="progress-title">Прогресс разработки</div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="progress-text">
+                    <span>Начальная разработка</span>
+                    <span>75% Готово</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#">About</a>
+                    <a href="#">API</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+                <div class="copyright">
+                    © {{.CurrentYear}} VirusChecker. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

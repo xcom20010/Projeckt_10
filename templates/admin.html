@@ -11,88 +11,134 @@
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-
+        
         body {
             background-color: #f8f9fa;
             color: #333;
-            min-height: 100vh;
         }
-
+        
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
-
-        header {
+        
+        .global-nav {
             background-color: white;
-            padding: 20px 0;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
             margin-bottom: 30px;
         }
-
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
+            text-decoration: none;
         }
-
+        
         .logo-icon {
             color: #4a6cf7;
             font-size: 24px;
         }
-
+        
         .logo-text {
             font-size: 22px;
             font-weight: 700;
             color: #333;
         }
-
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-link {
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
         .stats-card {
             background: linear-gradient(135deg, #4a6cf7, #6a8cff);
             color: white;
-            padding: 30px;
+            padding: 25px;
             border-radius: 12px;
-            margin-bottom: 30px;
         }
-
-        .stats-title {
-            font-size: 20px;
-            margin-bottom: 15px;
+        
+        .stats-label {
+            font-size: 14px;
             opacity: 0.9;
+            margin-bottom: 10px;
         }
-
+        
         .stats-number {
-            font-size: 48px;
+            font-size: 36px;
             font-weight: 700;
         }
-
+        
         .table-container {
             background-color: white;
             border-radius: 12px;
             padding: 25px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
-
+        
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .table-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .export-btn {
+            background-color: #4a6cf7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
         table {
             width: 100%;
             border-collapse: collapse;
         }
-
+        
         th {
             text-align: left;
             padding: 15px;
             border-bottom: 2px solid #eef2f7;
-            color: #555;
+            color: #666;
             font-weight: 600;
         }
-
+        
         td {
             padding: 15px;
             border-bottom: 1px solid #eef2f7;
-            color: #666;
+            color: #555;
         }
-
+        
         .status-badge {
             display: inline-block;
             padding: 5px 12px;
@@ -100,136 +146,247 @@
             font-size: 13px;
             font-weight: 600;
         }
-
-        .status-Clean {
-            background-color: #e6f7ee;
-            color: #00a86b;
+        
+        .status-Чисто, .status-Clean, .status-Низкий {
+            background-color: #d4edda;
+            color: #155724;
         }
-
-        .status-Suspicious {
-            background-color: #fff4e6;
-            color: #ff9900;
+        
+        .status-Подозрительный, .status-Suspicious, .status-Средний {
+            background-color: #fff3cd;
+            color: #856404;
         }
-
-        .status-Malicious {
-            background-color: #ffe6e6;
-            color: #ff3333;
+        
+        .status-Вредоносный, .status-Malicious, .status-Высокий {
+            background-color: #f8d7da;
+            color: #721c24;
         }
-
-        .scan-id {
-            font-family: monospace;
-            background-color: #f8f9fa;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
+        
+        .url-cell {
+            max-width: 300px;
+            word-break: break-all;
+            font-size: 14px;
         }
-
-        .export-button {
-            background-color: #4a6cf7;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 20px;
-            transition: transform 0.2s;
+        
+        .timestamp {
+            font-size: 13px;
+            color: #888;
         }
-
-        .export-button:hover {
-            transform: translateY(-2px);
-        }
-
-        .no-data {
+        
+        .loading {
             text-align: center;
             padding: 50px;
             color: #888;
-            font-size: 16px;
         }
-
-        @media (max-width: 768px) {
-            table {
-                display: block;
-                overflow-x: auto;
-            }
+        
+        .footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid #eef2f7;
+            text-align: center;
+            color: #888;
         }
     </style>
 </head>
 <body>
-    <header>
+    <nav class="global-nav">
         <div class="container">
-            <div class="logo">
-                <div class="logo-icon">🔒</div>
-                <div class="logo-text">VirusTotal Admin</div>
+            <div class="nav-content">
+                <a href="/" class="logo">
+                    <div class="logo-icon">🔒</div>
+                    <div class="logo-text">VirusChecker Admin</div>
+                </a>
+                <div class="nav-links">
+                    <a href="/url-scanner" class="nav-link">Scanner</a>
+                    <a href="/admin" class="nav-link">Admin</a>
+                </div>
             </div>
         </div>
-    </header>
-
+    </nav>
+    
     <div class="container">
-        <div class="stats-card">
-            <div class="stats-title">Total Scans Performed</div>
-            <div class="stats-number">{{len .Scans}}</div>
-        </div>
-
-        <button class="export-button" onclick="exportToJSON()">
-            📥 Export All Data to JSON
-        </button>
-
-        <div class="table-container">
-            <h2 style="margin-bottom: 20px; color: #333;">Scan History</h2>
-
-            {{if .Scans}}
-            <table>
-                <thead>
-                    <tr>
-                        <th>Scan ID</th>
-                        <th>URL</th>
-                        <th>Status</th>
-                        <th>Detection</th>
-                        <th>Timestamp</th>
-                        <th>IP Address</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{range .Scans}}
-                    <tr>
-                        <td><span class="scan-id">{{.ID}}</span></td>
-                        <td style="max-width: 300px; word-break: break-all;">{{.URL}}</td>
-                        <td>
-                            <span class="status-badge status-{{.Status}}">{{.Status}}</span>
-                        </td>
-                        <td>{{.Detection}}</td>
-                        <td>{{.Timestamp.Format "2006-01-02 15:04:05"}}</td>
-                        <td>{{.IPAddress}}</td>
-                    </tr>
-                    {{end}}
-                </tbody>
-            </table>
-            {{else}}
-            <div class="no-data">
-                📁 No scan data available yet. Go to the URL Scanner and perform some scans.
+        <div id="statsContainer">
+            <div class="stats-grid">
+                <div class="stats-card">
+                    <div class="stats-label">Всего сканирований</div>
+                    <div class="stats-number" id="totalScans">0</div>
+                </div>
+                <div class="stats-card" style="background: linear-gradient(135deg, #ff6b6b, #ee5253);">
+                    <div class="stats-label">Вредоносных URL</div>
+                    <div class="stats-number" id="maliciousScans">0</div>
+                </div>
+                <div class="stats-card" style="background: linear-gradient(135deg, #ff9f43, #ff7f50);">
+                    <div class="stats-label">Подозрительных</div>
+                    <div class="stats-number" id="suspiciousScans">0</div>
+                </div>
+                <div class="stats-card" style="background: linear-gradient(135deg, #10ac84, #1dd1a1);">
+                    <div class="stats-label">Чистых</div>
+                    <div class="stats-number" id="cleanScans">0</div>
+                </div>
             </div>
-            {{end}}
+        </div>
+        
+        <div class="table-container">
+            <div class="table-header">
+                <h2 class="table-title">📋 История сканирований VirusChecker</h2>
+                <div>
+                    <button class="export-btn" onclick="exportToJSON()" style="margin-right: 10px;">📥 JSON</button>
+                    <button class="export-btn" onclick="exportToCSV()">📊 CSV</button>
+                </div>
+            </div>
+            
+            <div id="scansTable">
+                <div class="loading">
+                    <div style="font-size: 40px; margin-bottom: 20px;">🔍</div>
+                    <div>Загрузка данных...</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Python + Go интеграция. Данные сохраняются в scans.json</p>
+            <p id="lastUpdate" style="font-size: 12px; margin-top: 10px;"></p>
         </div>
     </div>
-
+    
     <script>
+        async function loadScans() {
+            try {
+                const response = await fetch('/api/scans');
+                const data = await response.json();
+                
+                if (data.success) {
+                    displayScans(data.scans);
+                    updateStats(data.scans);
+                }
+            } catch (error) {
+                console.error('Error loading scans:', error);
+                document.getElementById('scansTable').innerHTML = 
+                    '<div class="loading" style="color: #ff3333;">❌ Ошибка загрузки данных</div>';
+            }
+        }
+        
+        function displayScans(scans) {
+            const container = document.getElementById('scansTable');
+            
+            if (!scans || scans.length === 0) {
+                container.innerHTML = `
+                    <div class="loading">
+                        <div style="font-size: 40px; margin-bottom: 20px;">📭</div>
+                        <div>Нет данных сканирований</div>
+                        <div style="font-size: 14px; margin-top: 20px; color: #888;">
+                            Перейдите на страницу VirusChecker Scanner и проанализируйте URL
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>URL</th>
+                            <th>Статус</th>
+                            <th>Детекция</th>
+                            <th>Локальный</th>
+                            <th>VirusTotal</th>
+                            <th>Время</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            scans.reverse().forEach(scan => {
+                const statusClass = 'status-' + scan.status.replace(' ', '-');
+                const date = new Date(scan.timestamp);
+                
+                html += `
+                    <tr>
+                        <td><span style="font-family: monospace; font-size: 12px;">${scan.id.substring(0, 12)}...</span></td>
+                        <td class="url-cell">
+                            <div style="font-weight: 500;">${scan.url}</div>
+                            ${scan.local_flags && scan.local_flags.length > 0 ? 
+                                `<div style="font-size: 11px; color: #ff9900; margin-top: 5px;">
+                                    ⚠️ ${scan.local_flags.length} признаков
+                                </div>` : ''}
+                        </td>
+                        <td><span class="status-badge ${statusClass}">${scan.status}</span></td>
+                        <td><strong>${scan.detection}</strong></td>
+                        <td>${scan.local_score}/10</td>
+                        <td>${scan.vt_malicious || 0}/${scan.vt_total || 0}</td>
+                        <td class="timestamp">${date.toLocaleString()}</td>
+                    </tr>
+                `;
+            });
+            
+            html += '</tbody></table>';
+            container.innerHTML = html;
+            document.getElementById('lastUpdate').innerHTML = `Последнее обновление: ${new Date().toLocaleString()}`;
+        }
+        
+        function updateStats(scans) {
+            const total = scans.length;
+            let malicious = 0, suspicious = 0, clean = 0;
+            
+            scans.forEach(scan => {
+                if (scan.status.includes('Вредоносный') || scan.status.includes('Malicious') || scan.status.includes('Высокий')) {
+                    malicious++;
+                } else if (scan.status.includes('Подозрительный') || scan.status.includes('Suspicious') || scan.status.includes('Средний')) {
+                    suspicious++;
+                } else {
+                    clean++;
+                }
+            });
+            
+            document.getElementById('totalScans').textContent = total;
+            document.getElementById('maliciousScans').textContent = malicious;
+            document.getElementById('suspiciousScans').textContent = suspicious;
+            document.getElementById('cleanScans').textContent = clean;
+        }
+        
         function exportToJSON() {
             fetch('/api/scans')
-                .then(response => response.json())
+                .then(res => res.json())
                 .then(data => {
                     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = `vt-scans-${new Date().toISOString().split('T')[0]}.json`;
-                    document.body.appendChild(a);
+                    a.download = `viruschecker-scans-${new Date().toISOString().split('T')[0]}.json`;
                     a.click();
-                    document.body.removeChild(a);
                     URL.revokeObjectURL(url);
-                })
-                .catch(error => console.error('Error:', error));
+                });
         }
+        
+        function exportToCSV() {
+            fetch('/api/scans')
+                .then(res => res.json())
+                .then(data => {
+                    if (!data.scans || data.scans.length === 0) return;
+                    
+                    let csv = 'ID,URL,Status,Detection,Local Score,VT Malicious,VT Total,Timestamp\n';
+                    
+                    data.scans.forEach(scan => {
+                        csv += `"${scan.id}","${scan.url}","${scan.status}","${scan.detection}",${scan.local_score},${scan.vt_malicious || 0},${scan.vt_total || 0},"${scan.timestamp}"\n`;
+                    });
+                    
+                    const blob = new Blob([csv], { type: 'text/csv' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `viruschecker-scans-${new Date().toISOString().split('T')[0]}.csv`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                });
+        }
+        
+        // Загружаем данные при загрузке страницы
+        loadScans();
+        
+        // Обновляем каждые 30 секунд
+        setInterval(loadScans, 30000);
     </script>
 </body>
 </html>

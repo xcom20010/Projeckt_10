@@ -11,7 +11,7 @@
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-
+        
         body {
             background-color: #f8f9fa;
             color: #333;
@@ -19,13 +19,13 @@
             display: flex;
             flex-direction: column;
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-
+        
         /* Навигация */
         .global-nav {
             background-color: white;
@@ -35,36 +35,36 @@
             top: 0;
             z-index: 1000;
         }
-
+        
         .nav-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .logo {
             display: flex;
             align-items: center;
             gap: 10px;
             text-decoration: none;
         }
-
+        
         .logo-icon {
             color: #4a6cf7;
             font-size: 24px;
         }
-
+        
         .logo-text {
             font-size: 22px;
             font-weight: 700;
             color: #333;
         }
-
+        
         .nav-links {
             display: flex;
             gap: 30px;
         }
-
+        
         .nav-link {
             color: #666;
             text-decoration: none;
@@ -73,15 +73,15 @@
             position: relative;
             transition: color 0.2s;
         }
-
+        
         .nav-link:hover {
             color: #4a6cf7;
         }
-
+        
         .nav-link.active {
             color: #4a6cf7;
         }
-
+        
         .nav-link.active::after {
             content: '';
             position: absolute;
@@ -92,13 +92,13 @@
             background-color: #4a6cf7;
             border-radius: 3px 3px 0 0;
         }
-
+        
         .user-menu {
             display: flex;
             align-items: center;
             gap: 20px;
         }
-
+        
         .sign-in {
             color: #4a6cf7;
             text-decoration: none;
@@ -107,7 +107,7 @@
             border-radius: 6px;
             background-color: #f0f2ff;
         }
-
+        
         /* Основной контент */
         main {
             flex-grow: 1;
@@ -116,7 +116,7 @@
             justify-content: center;
             padding: 40px 0;
         }
-
+        
         .scanner-container {
             background-color: white;
             border-radius: 16px;
@@ -126,14 +126,14 @@
             width: 100%;
             text-align: center;
         }
-
+        
         .scanner-title {
             font-size: 32px;
             color: #333;
             margin-bottom: 15px;
             font-weight: 700;
         }
-
+        
         .scanner-subtitle {
             color: #666;
             font-size: 16px;
@@ -142,7 +142,7 @@
             margin-left: auto;
             margin-right: auto;
         }
-
+        
         /* Поле ввода URL */
         .url-input-container {
             background-color: #f8f9ff;
@@ -151,13 +151,13 @@
             border: 2px dashed #d1d9ff;
             margin-bottom: 30px;
         }
-
+        
         .url-input-wrapper {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
         }
-
+        
         .url-input {
             flex-grow: 1;
             padding: 18px 20px;
@@ -166,12 +166,12 @@
             font-size: 16px;
             transition: border-color 0.2s;
         }
-
+        
         .url-input:focus {
             outline: none;
             border-color: #4a6cf7;
         }
-
+        
         .scan-button {
             background: linear-gradient(90deg, #4a6cf7, #6a8cff);
             color: white;
@@ -184,40 +184,40 @@
             transition: transform 0.2s;
             white-space: nowrap;
         }
-
+        
         .scan-button:hover {
             transform: translateY(-2px);
         }
-
+        
         .scan-icon {
             margin-right: 8px;
         }
-
+        
         .url-examples {
             color: #888;
             font-size: 14px;
             margin-top: 15px;
         }
-
+        
         /* Примеры URL */
         .examples-section {
             margin-top: 40px;
             text-align: left;
         }
-
+        
         .examples-title {
             font-size: 18px;
             color: #333;
             margin-bottom: 15px;
             font-weight: 600;
         }
-
+        
         .examples-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 15px;
         }
-
+        
         .example-url {
             background-color: #f8f9fa;
             padding: 12px 15px;
@@ -228,12 +228,12 @@
             cursor: pointer;
             transition: background-color 0.2s;
         }
-
+        
         .example-url:hover {
             background-color: #eef1ff;
         }
-
-        /* Статус сканирования */
+        
+        /* Результаты сканирования */
         .scan-status {
             margin-top: 40px;
             padding: 25px;
@@ -241,30 +241,84 @@
             border-radius: 12px;
             text-align: left;
         }
-
+        
         .status-title {
             font-size: 18px;
             color: #333;
             margin-bottom: 15px;
             font-weight: 600;
         }
-
+        
         .status-item {
             display: flex;
             justify-content: space-between;
             padding: 10px 0;
             border-bottom: 1px solid #eee;
         }
-
+        
         .status-label {
             color: #666;
         }
-
+        
         .status-value {
             color: #333;
             font-weight: 500;
         }
-
+        
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .status-Чисто, .status-Clean, .status-Низкий {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-Подозрительный, .status-Suspicious, .status-Средний {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-Вредоносный, .status-Malicious, .status-Высокий {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0,0,0,.1);
+            border-radius: 50%;
+            border-top-color: #4a6cf7;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .service-status {
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .service-online {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .service-offline {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
         /* Подвал */
         footer {
             background-color: #1a1f36;
@@ -272,11 +326,11 @@
             padding: 40px 0 20px;
             margin-top: 60px;
         }
-
+        
         .footer-content {
             text-align: center;
         }
-
+        
         .footer-links {
             display: flex;
             justify-content: center;
@@ -284,63 +338,63 @@
             margin-bottom: 20px;
             flex-wrap: wrap;
         }
-
+        
         .footer-links a {
             color: #a0a7c2;
             text-decoration: none;
             font-size: 14px;
         }
-
+        
         .footer-links a:hover {
             color: white;
         }
-
+        
         .copyright {
             font-size: 14px;
             color: #777;
         }
-
+        
         /* Адаптивность */
         @media (max-width: 768px) {
             .nav-content {
                 flex-direction: column;
                 gap: 15px;
             }
-
+            
             .nav-links {
                 gap: 20px;
             }
-
+            
             .scanner-container {
                 padding: 40px 20px;
             }
-
+            
             .scanner-title {
                 font-size: 26px;
             }
-
+            
             .url-input-wrapper {
                 flex-direction: column;
             }
-
+            
             .url-input, .scan-button {
                 width: 100%;
             }
-
+            
             .examples-grid {
                 grid-template-columns: 1fr;
             }
         }
-
+        
         @media (max-width: 480px) {
             .scanner-title {
                 font-size: 22px;
             }
-
+            
             .url-input-container {
                 padding: 25px 20px;
             }
-
+            
             .nav-links {
                 flex-direction: column;
                 gap: 10px;
@@ -358,14 +412,15 @@
                     <div class="logo-icon">🔒</div>
                     <div class="logo-text">VirusChecker</div>
                 </a>
-
+                
                 <div class="nav-links">
-                    <a href="/url-scanner" class='nav-link {{if eq .ActiveTab "url-scanner"}}active{{end}}'>URL Scanner</a>
-                    <a href="/coming-soon" class='nav-link {{if eq .ActiveTab "coming-soon"}}active{{end}}'>Coming Soon</a>
+                    <a href="/url-scanner" class="nav-link {{if eq .ActiveTab "url-scanner"}}active{{end}}">URL Scanner</a>
+                    <a href="/coming-soon" class="nav-link {{if eq .ActiveTab "coming-soon"}}active{{end}}">Coming Soon</a>
+                    <a href="/admin" class="nav-link">Admin</a>
                 </div>
-
-                <div>
-                    <a>    </a>
+                
+                <div class="user-menu">
+                    <a href="#" class="sign-in">Sign in</a>
                 </div>
             </div>
         </div>
@@ -374,46 +429,217 @@
     <!-- Основной контент -->
     <main>
         <div class="container">
+            <!-- Статус Python сервиса -->
+            <div id="serviceStatus" class="service-status">
+                <span class="loading-spinner"></span> Проверка подключения к Python сервису...
+            </div>
+            
             <div class="scanner-container">
-                <h1 class="scanner-title">URL Scanner</h1>
+                <h1 class="scanner-title">🔐 VirusChecker URL Scanner</h1>
                 <p class="scanner-subtitle">
-                    Analyze suspicious URLs to detect malware and other threats. Check URLs for malicious content using 70+ antivirus scanners and URL/domain blocklisting services.
+                    Двухуровневая проверка: локальный анализ паттернов + VirusTotal API (через Python)
                 </p>
-
+                
                 <div class="url-input-container">
                     <div class="url-input-wrapper">
                         <input type="text" class="url-input" placeholder="https://example.com/path" id="urlInput">
                         <button class="scan-button" id="scanButton">
-                            <span class="scan-icon">🔍</span> Scan URL
+                            <span class="scan-icon">🔍</span> Анализировать URL
                         </button>
                     </div>
                     <div class="url-examples">
-                        Example: https://example.com, http://malicious-site.com/path, ftp://server.com/file.zip
+                        Пример: https://google.com, http://testphp.vulnweb.com, https://bit.ly/3abcde
                     </div>
                 </div>
-
-                <!-- Статус сканирования -->
-                <div class="scan-status" id="scanStatus" style="display: none">
-                    <h3 class="status-title">Scan Results</h3>
+                
+                <!-- Примеры URL -->
+                <div class="examples-section">
+                    <h3 class="examples-title">Попробуйте примеры:</h3>
+                    <div class="examples-grid">
+                        <div class="example-url" onclick="document.getElementById('urlInput').value = 'https://google.com'">
+                            https://google.com (чистый)
+                        </div>
+                        <div class="example-url" onclick="document.getElementById('urlInput').value = 'http://testphp.vulnweb.com'">
+                            http://testphp.vulnweb.com (тестовый)
+                        </div>
+                        <div class="example-url" onclick="document.getElementById('urlInput').value = 'https://bit.ly/3abcde'">
+                            https://bit.ly/3abcde (сокращенный)
+                        </div>
+                        <div class="example-url" onclick="document.getElementById('urlInput').value = 'http://login-verify-account-secure.com'">
+                            http://login-verify-account-secure.com (фишинг)
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Результаты сканирования -->
+                <div class="scan-status" id="scanStatus" style="display: none;">
+                    <h3 class="status-title">📊 Результаты анализа VirusChecker</h3>
+                    
+                    <div style="display: flex; gap: 20px; margin-bottom: 20px;">
+                        <div style="flex: 1; padding: 15px; background-color: #f8f9ff; border-radius: 8px;">
+                            <div style="font-size: 14px; color: #666;">Локальный анализ</div>
+                            <div style="font-size: 24px; font-weight: 700; color: #4a6cf7;" id="localScore">0/10</div>
+                        </div>
+                        <div style="flex: 1; padding: 15px; background-color: #f8f9ff; border-radius: 8px;">
+                            <div style="font-size: 14px; color: #666;">VirusTotal</div>
+                            <div style="font-size: 24px; font-weight: 700; color: #4a6cf7;" id="vtScore">-</div>
+                        </div>
+                    </div>
+                    
                     <div class="status-item">
                         <span class="status-label">URL:</span>
                         <span class="status-value" id="resultUrl">-</span>
                     </div>
                     <div class="status-item">
-                        <span class="status-label">Status:</span>
+                        <span class="status-label">Статус:</span>
                         <span class="status-value" id="resultStatus">-</span>
                     </div>
                     <div class="status-item">
-                        <span class="status-label">Detection:</span>
+                        <span class="status-label">Детекция:</span>
                         <span class="status-value" id="resultDetection">-</span>
                     </div>
                     <div class="status-item">
-                        <span class="status-label">Last Analysis:</span>
+                        <span class="status-label">Время проверки:</span>
                         <span class="status-value" id="resultDate">-</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">ID скана:</span>
+                        <span class="status-value" style="font-family: monospace;" id="scanId">-</span>
+                    </div>
+                    
+                    <div id="localFlags" style="margin-top: 20px; padding: 15px; background-color: #fff3cd; border-radius: 8px; display: none;">
+                        <div style="font-weight: 600; margin-bottom: 10px; color: #856404;">⚠️ Обнаруженные признаки:</div>
+                        <ul id="flagsList" style="list-style: none; padding: 0; margin: 0; color: #856404;"></ul>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#">About</a>
+                    <a href="#">API</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+                <div class="copyright">
+                    © {{.CurrentYear}} VirusChecker. Python + Go интеграция.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Проверка статуса Python сервиса
+        async function checkServiceStatus() {
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+                const statusDiv = document.getElementById('serviceStatus');
+                
+                if (data.python.status === 'connected') {
+                    statusDiv.className = 'service-status service-online';
+                    statusDiv.innerHTML = '✅ Python сервис подключен. Доступен полный анализ с VirusTotal.';
+                } else {
+                    statusDiv.className = 'service-status service-offline';
+                    statusDiv.innerHTML = '⚠️ Python сервис недоступен. Используется упрощенный локальный анализ.';
+                }
+            } catch (error) {
+                const statusDiv = document.getElementById('serviceStatus');
+                statusDiv.className = 'service-status service-offline';
+                statusDiv.innerHTML = '❌ Python сервис не отвечает. Проверьте: python scanner.py';
+            }
+        }
+        
+        // Сканирование URL
+        document.getElementById('scanButton').addEventListener('click', async function() {
+            const urlInput = document.getElementById('urlInput');
+            const url = urlInput.value.trim();
+            const scanStatus = document.getElementById('scanStatus');
+            
+            if (!url) {
+                alert('Введите URL для анализа');
+                urlInput.focus();
+                return;
+            }
+            
+            // Показываем статус сканирования
+            scanStatus.style.display = 'block';
+            document.getElementById('resultUrl').textContent = url.length > 50 ? url.substring(0, 50) + '...' : url;
+            document.getElementById('resultStatus').innerHTML = '<span class="loading-spinner"></span> Анализ...';
+            document.getElementById('resultDetection').textContent = 'Ожидание...';
+            document.getElementById('resultDate').textContent = new Date().toLocaleString();
+            document.getElementById('scanId').textContent = 'Генерация...';
+            document.getElementById('localScore').textContent = '.../10';
+            document.getElementById('vtScore').textContent = '...';
+            document.getElementById('localFlags').style.display = 'none';
+            
+            try {
+                // Отправляем запрос к Go API (который проксирует в Python)
+                const response = await fetch('/api/scan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        url: url,
+                        force_vt: true 
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    const result = data.data;
+                    
+                    // Обновляем UI
+                    document.getElementById('resultStatus').textContent = result.status;
+                    document.getElementById('resultStatus').className = 'status-value status-' + result.status;
+                    document.getElementById('resultDetection').textContent = result.detection;
+                    document.getElementById('resultDate').textContent = new Date(result.timestamp).toLocaleString();
+                    document.getElementById('scanId').textContent = result.id;
+                    document.getElementById('localScore').textContent = result.local_score + '/10';
+                    document.getElementById('vtScore').textContent = result.vt_malicious + '/' + (result.vt_total || '0');
+                    
+                    // Показываем флаги локального анализа
+                    if (result.local_flags && result.local_flags.length > 0) {
+                        document.getElementById('localFlags').style.display = 'block';
+                        const flagsList = document.getElementById('flagsList');
+                        flagsList.innerHTML = '';
+                        result.local_flags.forEach(flag => {
+                            const li = document.createElement('li');
+                            li.style.marginBottom = '5px';
+                            li.style.paddingLeft = '20px';
+                            li.style.position = 'relative';
+                            li.innerHTML = '• ' + flag;
+                            flagsList.appendChild(li);
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('resultStatus').textContent = 'Ошибка соединения';
+                document.getElementById('resultStatus').style.color = '#ff3333';
+                alert('Ошибка при анализе URL. Попробуйте еще раз.');
+            }
+        });
+        
+        // Обработка Enter
+        document.getElementById('urlInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('scanButton').click();
+            }
+        });
+        
+        // Проверяем статус при загрузке
+        checkServiceStatus();
+        
+        // Проверяем статус каждые 30 секунд
+        setInterval(checkServiceStatus, 30000);
+    </script>
 </body>
 </html>
